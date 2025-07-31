@@ -128,11 +128,16 @@ while True:
     elif choice == "r":
         rental_days = int(input("How many day would u like a rental car : "))
         print(SYMBOL * WIDTH)
+        if rental_days > num_nights:
+            print(
+                  "Warning  - Car rental longer than days booked for hotel")
         if rental_days >= 0:
             print("Your rental cost is", currency(car_rental(rental_days)))
             continue
+
         print("Invalid selection")
         rental_days = False
+
 
     # exit function
     elif choice == "q":

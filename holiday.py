@@ -2,17 +2,23 @@
 SYMBOL = "-"
 WIDTH = 30
 
+# location input list
+location_options = ["d", "l", "p", "x"]
+
 
 def plane_cost(city_flight):
     """
     Takes a input for location and assigns a value based on location.
     """
+
     if city_flight == "d":
         return 7500
     elif city_flight == "l":
         return 9800
     elif city_flight == "p":
         return 6700
+    elif city_flight == "x":
+        return False
     else:
         return False
 
@@ -62,6 +68,7 @@ def location():
     print("d = Dubai")
     print("l = London")
     print("p = paris")
+    print("x = return")
 
 
 def currency(value):
@@ -84,14 +91,27 @@ while True:
     # Selecting location and assign vale
     if choice == "f":
         location()
-        city_flight = input("select a location : ").lower()
+
+        location_choice = input("select a location : ").lower()
+        if location_choice == "x":
+            city_flight = False
+            print("returning")
+            continue
+
+        if location_choice not in location_options:
+            input("select a location : ")
+            continue
+
+        city_flight = location_choice
         print(SYMBOL * WIDTH)
         cost = plane_cost(city_flight)
         if cost:
             print("Your flight will be", currency(cost))
             continue
-        print("Invalid selection")
-        city_flight = False
+        if cost is False:
+            print("Returning")
+        else:
+            print("Invalid selection")
 
     # Calculate accommodation cost
     elif choice == "a":
